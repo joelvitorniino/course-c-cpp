@@ -10,17 +10,9 @@ int main(void)
     char *filename = "./ascii/castelo.txt";
     FILE *fptr = NULL;
 
-    if((fptr = fopen(filename,"r")) == NULL)
-    {
-        fprintf(stderr,"error opening %s\n",filename);
-        return 1;
-    }
-
     printf("\n\n");
-    print_image(fptr);
+    print_image(fptr, filename);
     printf("\n\n");
-
-    fclose(fptr);
 
     int segundos = time(0);
     srand(segundos);
@@ -95,13 +87,7 @@ int main(void)
     if(acertou) {
         filename = "./ascii/sorriso.txt";
 
-        if((fptr = fopen(filename,"r")) == NULL)
-        {
-            fprintf(stderr,"error opening %s\n",filename);
-            return 1;
-        }
-
-        print_image(fptr);
+        print_image(fptr, filename);
         printf("\n\n");
         printf("\n\n");
 
@@ -111,26 +97,27 @@ int main(void)
     } else {
         printf("Você perdeu! Tente de novo!\n");
         printf("\n\n");
-
-        filename = "./ascii/careta.txt";
-
-        if((fptr = fopen(filename,"r")) == NULL)
-        {
-            fprintf(stderr,"error opening %s\n",filename);
-            return 1;
-        }
-
-
-        print_image(fptr);
+        print_image(fptr, "./ascii/careta.txt");
         printf("\n\n");
     };
 
 }
 
-void print_image(FILE *fptr)
+void print_ascii(FILE *fptr)
 {
     char read_string[MAX_LEN];
  
     while(fgets(read_string,sizeof(read_string),fptr) != NULL)
         printf("%s",read_string);
+}
+
+void print_image(FILE *fptr, char *filename) 
+{
+    if((fptr = fopen(filename,"r")) == NULL)
+    {
+        fprintf(stderr,"error opening %s\n",filename);
+    }
+
+    print_ascii(fptr);
+    fclose(fptr);
 }
