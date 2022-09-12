@@ -3,12 +3,24 @@
 #include <time.h>
 
 #define NUMERO_DE_TENTATIVAS 5
+#define MAX_LEN 128
 
-int main()
-{
-    printf("****************************************\n");
-    printf("* Bem vindo ao nosso jogo de adivinhação *\n");
-    printf("****************************************\n");
+int main(void)
+{   
+    char *filename = "./ascii/castelo.txt";
+    FILE *fptr = NULL;
+
+    if((fptr = fopen(filename,"r")) == NULL)
+    {
+        fprintf(stderr,"error opening %s\n",filename);
+        return 1;
+    }
+
+    printf("\n\n");
+    print_image(fptr);
+    printf("\n\n");
+
+    fclose(fptr);
 
     int segundos = time(0);
     srand(segundos);
@@ -38,7 +50,7 @@ int main()
         case 2:
             numerodetentativas = 15;
             break;
-            
+
         default:
             numerodetentativas = 6;
             break;
@@ -81,11 +93,44 @@ int main()
     printf("Fim de jogo!\n");
 
     if(acertou) {
+        filename = "./ascii/sorriso.txt";
+
+        if((fptr = fopen(filename,"r")) == NULL)
+        {
+            fprintf(stderr,"error opening %s\n",filename);
+            return 1;
+        }
+
+        print_image(fptr);
+        printf("\n\n");
+        printf("\n\n");
+
         printf("Você ganhou!\n");
         printf("Você acertou em %d tentativas\n", tentativas);
         printf("Total de pontos: %.1f\n", pontos);
     } else {
         printf("Você perdeu! Tente de novo!\n");
+        printf("\n\n");
+
+        filename = "./ascii/careta.txt";
+
+        if((fptr = fopen(filename,"r")) == NULL)
+        {
+            fprintf(stderr,"error opening %s\n",filename);
+            return 1;
+        }
+
+
+        print_image(fptr);
+        printf("\n\n");
     };
 
+}
+
+void print_image(FILE *fptr)
+{
+    char read_string[MAX_LEN];
+ 
+    while(fgets(read_string,sizeof(read_string),fptr) != NULL)
+        printf("%s",read_string);
 }
