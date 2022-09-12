@@ -7,11 +7,10 @@
 
 int main(void)
 {   
-    char *filename = "./ascii/castelo.txt";
     FILE *fptr = NULL;
 
     printf("\n\n");
-    print_image(fptr, filename);
+    print_image(fptr, "./ascii/castelo.txt");
     printf("\n\n");
 
     int segundos = time(0);
@@ -85,9 +84,7 @@ int main(void)
     printf("Fim de jogo!\n");
 
     if(acertou) {
-        filename = "./ascii/sorriso.txt";
-
-        print_image(fptr, filename);
+        print_image(fptr, "./ascii/sorriso.txt");
         printf("\n\n");
         printf("\n\n");
 
@@ -97,6 +94,7 @@ int main(void)
     } else {
         printf("Você perdeu! Tente de novo!\n");
         printf("\n\n");
+        
         print_image(fptr, "./ascii/careta.txt");
         printf("\n\n");
     };
