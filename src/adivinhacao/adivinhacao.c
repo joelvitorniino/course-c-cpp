@@ -5,6 +5,33 @@
 #define NUMERO_DE_TENTATIVAS 5
 #define MAX_LEN 128
 
+void print_ascii(FILE *fptr)
+{
+    char read_string[MAX_LEN];
+ 
+    while(fgets(read_string,sizeof(read_string),fptr) != NULL)
+        printf("%s",read_string);
+}
+
+void print_image(FILE *fptr, char *filename) 
+{
+    if((fptr = fopen(filename,"r")) == NULL)
+    {
+        fprintf(stderr,"error opening %s\n",filename);
+    }
+
+    print_ascii(fptr);
+    fclose(fptr);
+}
+
+void mostrardificuldade(int nivel) 
+{
+    printf("Qual o nível de dificuldade?\n");
+    printf("(1) Fácil (2) Médio (3) Difícil\n\n");
+    printf("Escolha: ");
+    scanf("%d", &nivel);
+}
+
 int main(void)
 {   
     FILE *fptr = NULL;
@@ -26,10 +53,8 @@ int main(void)
     int acertou = 0;
 
     int nivel;
-    printf("Qual o nível de dificuldade?\n");
-    printf("(1) Fácil (2) Médio (3) Difícil\n\n");
-    printf("Escolha: ");
-    scanf("%d", &nivel);
+
+    mostrardificuldade(nivel);
 
     int numerodetentativas;
 
@@ -99,23 +124,4 @@ int main(void)
         printf("\n\n");
     };
 
-}
-
-void print_ascii(FILE *fptr)
-{
-    char read_string[MAX_LEN];
- 
-    while(fgets(read_string,sizeof(read_string),fptr) != NULL)
-        printf("%s",read_string);
-}
-
-void print_image(FILE *fptr, char *filename) 
-{
-    if((fptr = fopen(filename,"r")) == NULL)
-    {
-        fprintf(stderr,"error opening %s\n",filename);
-    }
-
-    print_ascii(fptr);
-    fclose(fptr);
 }
